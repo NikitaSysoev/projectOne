@@ -4,8 +4,15 @@ const path = require("path");
 const app = express();
 app.use(express.static(path.join(__dirname, "alfa", "build")));
 
-app.get("/ping", (req, res) => {
-  res.send("pong");
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
+app.get("/hello", (req, res) => {
+  res.status(200).send({
+    message: "Hello world"
+  });
 });
 
 app.get("/", (req, res) => {

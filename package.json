@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "alfa": "cd alfa && yarn start",
+    "build": "cd alfa && yarn build",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\""
   },

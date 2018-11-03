@@ -1,16 +1,15 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import api from '../api';
 
 export default class App extends Component {
   state = {
-    message: null
+    message: null,
   };
 
   componentDidMount() {
-    fetch("http://localhost:8080/hello")
-      .then(res => res.json())
-      .then(res => this.setState({ message: res.message }));
+    api.hello().then(message => this.setState({ message }));
   }
 
   render() {

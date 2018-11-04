@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'alfa', 'build')));
+app.use(express.static(path.join('./', 'alfa', 'build')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -16,7 +16,7 @@ app.get('/hello', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'alfa', 'build', 'index.html'));
+  res.sendFile(path.join('./', 'alfa', 'build', 'index.html'));
 });
 
-app.listen(process.env.PORT || 8080, () => console.log(`Listening`));
+app.listen(process.env.PORT || 8080, () => console.log('Listening'));

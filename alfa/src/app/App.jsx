@@ -4,9 +4,12 @@ import './App.css';
 import api from '../api';
 
 export default class App extends Component {
-  state = {
-    message: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: null,
+    };
+  }
 
   componentDidMount() {
     api.hello().then(message => this.setState({ message }));

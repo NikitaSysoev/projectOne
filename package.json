@@ -4,8 +4,9 @@
   "scripts": {
     "alfa": "cd alfa && yarn start",
     "build": "cd alfa && yarn build",
-    "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\""
+    "server": "nodemon server/server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\"",
+    "lint": "./node_modules/.bin/eslint server/**/*.js"
   },
   "main": "index.js",
   "repository": "https://github.com/NikitaSysoev/projectOne.git",
@@ -16,6 +17,13 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "babel-eslint": "^9.0.0",
+    "concurrently": "^4.0.1",
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.0"
   }
 }

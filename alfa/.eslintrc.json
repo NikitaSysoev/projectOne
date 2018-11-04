@@ -1,21 +1,23 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "extends": ["airbnb"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": ["airbnb"],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "react/jsx-filename-extension": "off"
-    }
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "import/no-named-as-default": 0
+  },
+  "globals": {
+    "it": false
+  }
 }

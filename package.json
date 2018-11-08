@@ -6,7 +6,8 @@
     "build": "cd alfa && yarn build",
     "server": "nodemon server/server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\"",
-    "lint": "eslint server/**/*.js"
+    "lint": "eslint server/**/*.js",
+    "alfalint": "cd alfa && yarn lint"
   },
   "main": "index.js",
   "repository": "https://github.com/NikitaSysoev/projectOne.git",

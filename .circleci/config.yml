@@ -3,6 +3,9 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
+machine:
+  node:
+    version: v8.12.0
 jobs:
   build:
     docker:
@@ -35,3 +38,4 @@ jobs:
         
       # run tests!
       - run: yarn test
+

@@ -12,6 +12,9 @@
     },
     "rules": {
       "import/no-named-as-default": 0
+    },
+    "settings": {
+      "ecmascript": 6,
+      "import/parser": "babel-eslint"
     }
-   
   }

@@ -15,10 +15,10 @@
   "plugins": ["react"],
   "rules": {
     "react/jsx-filename-extension": "off",
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "import/no-unresolved": "off"
   },
   "globals": {
     "it": false
-  },
-  "settings": {"import/extensions": [".js", ".jsx"] }
+  }
 }

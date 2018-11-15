@@ -9,7 +9,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/hello', (req, res) => {
+app.get('/api/hello', (req, res) => {
   res.status(200).send({
     message: 'Hello world',
   });

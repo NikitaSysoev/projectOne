@@ -7,7 +7,8 @@
     "server": "nodemon server/server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\"",
     "lint": "eslint server/**/*.js",
-    "alfalint": "cd alfa && yarn lint"
+    "alfalint": "cd alfa && yarn lint",
+    "test": "jest --runInBand"
   },
   "main": "index.js",
   "repository": "https://github.com/NikitaSysoev/projectOne.git",
@@ -18,13 +19,18 @@
     "express": "^4.16.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^9.0.0",
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^4.0.1",
     "eslint": "5.6.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0"
+    "eslint-plugin-react": "^7.11.0",
+    "jest": "^23.6.0",
+    "superagent": "^4.0.0-beta.5",
+    "supertest": "^3.3.0"
   }
 }

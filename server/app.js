@@ -15,6 +15,13 @@ app.get('/api/hello', (req, res) => {
   });
 });
 
+app.get('/api/users/:id', (req, res) => {
+  res.status(200).send({
+    id: +req.params.id,
+    name: 'Morgan',
+  });
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join('./', 'alfa', 'build', 'index.html'));
 });

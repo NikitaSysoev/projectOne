@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
+
 app.use(express.static(path.join('./', 'alfa', 'build')));
 
 app.use((req, res, next) => {
@@ -12,13 +13,6 @@ app.use((req, res, next) => {
 app.get('/api/hello', (req, res) => {
   res.status(200).send({
     message: 'Hello world',
-  });
-});
-
-app.get('/api/users/:id', (req, res) => {
-  res.status(200).send({
-    id: +req.params.id,
-    name: 'Morgan',
   });
 });
 

@@ -1,5 +1,7 @@
 const request = require('supertest');
 const app = require('./app');
+const User = require('./model/user');
+const database = require('./config/database');
 
 describe('app', () => {
   describe('/api/hello', () => {
@@ -11,54 +13,50 @@ describe('app', () => {
   });
 
   describe('/api/users', () => {
-    it('It should retrieve user by id', async () => {
-      await request(app)
-        .get('/api/users/1')
-        .expect(200, {
-          id: 1,
-          name: 'Morgan',
-        });
+    beforeAll(() => {
+      database.connect();
     });
 
-    it('It should create new user', async () => {
-      await request(app)
-        .get('/api/users')
-        .expect(200);
-      await request(app)
+    it('GET /api/users/:id', async () => {
+      const response = await request(app).get('/api/users/1');
+      expect(response.statusCode).toBe(200);
+      expect(response.body).toEqual({ id: 1, name: 'Morgan' });
+    });
+
+    it('GET /api/users', async () => {
+      const response = await request(app).get('/api/users');
+      expect(response.statusCode).toBe(200);
+      expect(response.body.users.length).toBe(1);
+    });
+
+    it('POST /api/users', async () => {
+      const response = await request(app)
         .post('/api/users')
-        .send({ id: 1, name: 'Morgan' })
-        .expect(201, {
-          id: 1,
-          name: 'Morgan',
-        });
+        .send({ id: 1, name: 'Morgan' });
+      expect(response.statusCode).toBe(200);
+      const users = await User.find({ id: 1, name: 'Morgan' });
+      expect(users.length).toBe(1);
+      expect(users[0]).toEqual({ id: 1, name: 'Morgan' });
     });
 
-    it('It should update user by id', async () => {
-      await request(app)
-        .get('/api/users/1')
-        .expect(200, {
-          id: 1,
-          name: 'Morgan',
-        });
-      await request(app)
+    it('PUT /api/users/:id', async () => {
+      const response = await request(app)
         .put('/api/users/1')
-        .send('Fuger')
-        .expect(200, {
-          id: 1,
-          name: 'Fuger',
-        });
+        .send('Fuger');
+      expect(response.statusCode).toBe(200);
+      const user = await User.findById(1);
+      expect(user).toEqual({ id: 1, name: 'Fuger' });
     });
 
-    it('It should delete user by id', async () => {
-      await request(app)
-        .get('/api/users/1')
-        .expect(200, {
-          id: 1,
-          name: 'Morgan',
-        });
-      await request(app)
-        .del('/api/users/1')
-        .expect(404);
+    it('DELETE /api/users/:id', async () => {
+      const response = await request(app).del('/api/users/1');
+      expect(response.statusCode).toBe(200);
+      const deleteUser = await User.findById(1);
+      expect(deleteUser.id).toNotExist();
+    });
+
+    afterAll(done => {
+      database.disconnect(done);
     });
   });
 });

@@ -37,5 +37,5 @@ jobs:
       - run: yarn lint && yarn alfalint
 
       # run tests!
-      - run: yarn db && yarn test
+      - run: yarn test
 

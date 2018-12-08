@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const User = require('./model/user');
+const database = require('./db/database');
 
+database.connect();
 const app = express();
 
 app.use(express.static(path.join('./', 'alfa', 'build')));
@@ -40,6 +42,21 @@ app.get('/api/users', (req, res) => {
   User.find().then(
     users => {
       res.send({ users });
+    },
+    e => {
+      res.status(400).send(e);
+    },
+  );
+});
+
+app.delete('/api/users/:id', (req, res) => {
+  const { id } = req.params;
+  User.findOneAndDelete(id).then(
+    user => {
+      if (!user) {
+        return res.status(404).send();
+      }
+      return res.send(user);
     },
     e => {
       res.status(400).send(e);

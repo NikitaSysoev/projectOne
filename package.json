@@ -5,6 +5,7 @@
     "alfa": "cd alfa && yarn start",
     "build": "cd alfa && yarn build",
     "server": "nodemon server/server.js",
+    "db": "npx kill-port 27017 && mongod",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\"",
     "lint": "eslint server/**/*.js",
     "alfalint": "cd alfa && yarn lint",

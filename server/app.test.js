@@ -17,10 +17,10 @@ describe('app', () => {
       database.connect();
     });
 
-    it('GET /api/users/:id', async () => {
+    it('GET /api/users/1', async () => {
       const response = await request(app).get('/api/users/1');
       expect(response.statusCode).toBe(200);
-      expect(response.body).toEqual({ id: 1, name: 'Morgan' });
+      expect(response.body.name).toBe('Morgan');
     });
 
     it('GET /api/users', async () => {
@@ -32,11 +32,11 @@ describe('app', () => {
     it('POST /api/users', async () => {
       const response = await request(app)
         .post('/api/users')
-        .send({ id: 1, name: 'Morgan' });
+        .send({ _id: 1, name: 'Morgan' });
       expect(response.statusCode).toBe(200);
       const users = await User.find({ id: 1, name: 'Morgan' });
       expect(users.length).toBe(1);
-      expect(users[0]).toEqual({ id: 1, name: 'Morgan' });
+      expect(users[0]).toEqual({ _id: 1, name: 'Morgan' });
     });
 
     it('PUT /api/users/:id', async () => {
@@ -45,7 +45,7 @@ describe('app', () => {
         .send('Fuger');
       expect(response.statusCode).toBe(200);
       const user = await User.findById(1);
-      expect(user).toEqual({ id: 1, name: 'Fuger' });
+      expect(user).toEqual({ _id: 1, name: 'Fuger' });
     });
 
     it('DELETE /api/users/:id', async () => {

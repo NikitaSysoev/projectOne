@@ -9,7 +9,7 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn alfa\"",
     "lint": "eslint server/**/*.js",
     "alfalint": "cd alfa && yarn lint",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "main": "index.js",
   "repository": "https://github.com/NikitaSysoev/projectOne.git",

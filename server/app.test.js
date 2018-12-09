@@ -49,7 +49,7 @@ describe('app', () => {
     it('PUT /api/users/1', async () => {
       const resPut = await request(app)
         .put('/api/users/1')
-        .send('Fuger');
+        .send({ name: 'Fuger' });
       expect(resPut.statusCode).toBe(200);
       const resGet = await request(app).get('/api/users/1');
       expect(resGet.statusCode).toBe(200);

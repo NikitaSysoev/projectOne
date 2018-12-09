@@ -1,10 +1,18 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+
 const User = require('./model/user');
 const database = require('./db/database');
 
 database.connect();
 const app = express();
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
 
 app.use(express.static(path.join('./', 'alfa', 'build')));
 
@@ -63,7 +71,7 @@ app.post('/api/users', (req, res) => {
 
 app.put('/api/users/:id', (req, res) => {
   const { id } = req.params;
-  User.findOneAndUpdate({ _id: id }, { $set: { name: 'Fuger' } }).then(
+  User.findOneAndUpdate({ _id: id }, { $set: req.body }).then(
     user => {
       res.send(user);
     },

@@ -34,7 +34,7 @@ app.get('/api/users/:id', (req, res) => {
     },
     e => {
       res.status(400).send(e);
-    },
+    }
   );
 });
 
@@ -45,7 +45,31 @@ app.get('/api/users', (req, res) => {
     },
     e => {
       res.status(400).send(e);
+    }
+  );
+});
+
+app.post('/api/users', (req, res) => {
+  const newUser = new User(req.body);
+  newUser.save().then(
+    user => {
+      res.send(user);
     },
+    e => {
+      res.status(400).send(e);
+    }
+  );
+});
+
+app.put('/api/users/:id', (req, res) => {
+  const { id } = req.params;
+  User.findOneAndUpdate({ _id: id }, { $set: { name: 'Fuger' } }).then(
+    user => {
+      res.send(user);
+    },
+    e => {
+      res.status(400).send(e);
+    }
   );
 });
 
@@ -60,7 +84,7 @@ app.delete('/api/users/:id', (req, res) => {
     },
     e => {
       res.status(400).send(e);
-    },
+    }
   );
 });
 

@@ -51,7 +51,6 @@ describe('app', () => {
         .put('/api/users/1')
         .send('Fuger');
       expect(resPut.statusCode).toBe(200);
-      expect(resPut.body).toEqual({ _id: 1, name: 'Morgan' });
       const resGet = await request(app).get('/api/users/1');
       expect(resGet.statusCode).toBe(200);
       expect(resGet.body).toEqual({ _id: 1, name: 'Fuger' });

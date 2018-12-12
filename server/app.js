@@ -49,7 +49,7 @@ app.get('/api/users/:id', (req, res) => {
 app.get('/api/users', (req, res) => {
   User.find().then(
     users => {
-      res.send({ users });
+      res.send(users);
     },
     e => {
       res.status(400).send(e);

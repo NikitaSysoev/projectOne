@@ -1,7 +1,13 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
 const app = require('./app');
-const database = require('./db/database');
 const User = require('./model/user');
+
+// jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
+let mongoServer;
 
 describe('app', () => {
   describe('/api/hello', () => {
@@ -13,8 +19,16 @@ describe('app', () => {
   });
 
   describe('/api/users', () => {
-    beforeAll(() => {
-      database.connect();
+    beforeAll(async () => {
+      mongoServer = new MongoMemoryServer();
+      const mongoUri = await mongoServer.getConnectionString();
+      await mongoose.connect(
+        mongoUri,
+        { useNewUrlParser: true },
+        err => {
+          if (err) console.error(err);
+        }
+      );
     });
 
     beforeEach(() => {
@@ -33,7 +47,7 @@ describe('app', () => {
     it('GET /api/users', async () => {
       const response = await request(app).get('/api/users');
       expect(response.statusCode).toBe(200);
-      expect(response.body.users.length).toBe(1);
+      expect(response.body.length).toBe(1);
     });
 
     it('POST /api/users', async () => {
@@ -43,7 +57,7 @@ describe('app', () => {
       expect(resPost.statusCode).toBe(200);
       const resGet = await request(app).get('/api/users');
       expect(resGet.statusCode).toBe(200);
-      expect(resGet.body.users.length).toBe(2);
+      expect(resGet.body.length).toBe(2);
     });
 
     it('PUT /api/users/1', async () => {
@@ -53,7 +67,7 @@ describe('app', () => {
       expect(resPut.statusCode).toBe(200);
       const resGet = await request(app).get('/api/users/1');
       expect(resGet.statusCode).toBe(200);
-      expect(resGet.body).toEqual({ _id: 1, name: 'Fuger' });
+      expect(resGet.body.name).toBe('Fuger');
     });
 
     it('DELETE /api/users/1', async () => {
@@ -63,8 +77,9 @@ describe('app', () => {
       expect(resGet.statusCode).toBe(404);
     });
 
-    afterAll(done => {
-      database.disconnect(done);
+    afterAll(() => {
+      mongoose.disconnect();
+      mongoServer.stop();
     });
   });
 });

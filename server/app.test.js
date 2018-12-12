@@ -6,10 +6,18 @@ const app = require('./app');
 const User = require('./model/user');
 
 // jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
-
 let mongoServer;
 
 describe('app', () => {
+  beforeAll(async () => {
+    mongoServer = new MongoMemoryServer();
+    const mongoUri = await mongoServer.getConnectionString();
+    await mongoose.connect(
+      mongoUri,
+      { useNewUrlParser: true }
+    );
+  });
+
   describe('/api/hello', () => {
     it("It should return 'Hello world' by default", async () => {
       const response = await request(app).get('/api/hello');
@@ -19,18 +27,6 @@ describe('app', () => {
   });
 
   describe('/api/users', () => {
-    beforeAll(async () => {
-      mongoServer = new MongoMemoryServer();
-      const mongoUri = await mongoServer.getConnectionString();
-      await mongoose.connect(
-        mongoUri,
-        { useNewUrlParser: true },
-        err => {
-          if (err) console.error(err);
-        }
-      );
-    });
-
     beforeEach(() => {
       User.deleteMany({}).then(() => {
         const newUser = new User({ _id: 1, name: 'Morgan' });
@@ -76,10 +72,9 @@ describe('app', () => {
       const resGet = await request(app).get('/api/users/1');
       expect(resGet.statusCode).toBe(404);
     });
-
-    afterAll(() => {
-      mongoose.disconnect();
-      mongoServer.stop();
-    });
+  });
+  afterAll(() => {
+    mongoose.disconnect();
+    mongoServer.stop();
   });
 });

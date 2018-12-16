@@ -5,7 +5,6 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const app = require('./app');
 const User = require('./model/user');
 
-// jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 let mongoServer;
 
 describe('app', () => {

@@ -1,0 +1,10 @@
+.UserBox {
+  display: flex;
+  border: 1px solid black;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.UserBox input {
+  font-size: small;
+}

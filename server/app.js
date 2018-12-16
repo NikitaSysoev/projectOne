@@ -1,18 +1,33 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const { MongoClient } = require('mongodb');
 
 const User = require('./model/user');
-const database = require('./db/database');
 
-database.connect();
 const app = express();
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 app.use(bodyParser.json());
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'users';
+
+MongoClient.connect(
+  url,
+  { useNewUrlParser: true },
+  (err, client) => {
+    if (err) throw err;
+    console.log('Connected successfully to server');
+    const db = client.db(dbName);
+    client.close();
+  }
+);
 
 app.use(express.static(path.join('./', 'alfa', 'build')));
 

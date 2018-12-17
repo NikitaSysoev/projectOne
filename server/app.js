@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
 
 const User = require('./model/user');
 
@@ -18,17 +18,18 @@ app.use(bodyParser.json());
 const url = 'mongodb://localhost:27017';
 const dbName = 'users';
 
-MongoClient.connect(
-  url,
-  { useNewUrlParser: true },
-  (err, client) => {
-    if (err) throw err;
-    console.log('Connected successfully to server');
-    const db = client.db(dbName);
-    client.close();
-  }
+mongoose.connect(
+  `${url}/${dbName}`,
+  { useNewUrlParser: true }
 );
-
+//
+User.deleteMany({}).then(() => {
+  const newUser = new User({ _id: 1, name: 'Morgan' });
+  const newUser2 = new User({ _id: 2, name: 'Rotts' });
+  newUser.save();
+  newUser2.save();
+});
+//
 app.use(express.static(path.join('./', 'alfa', 'build')));
 
 app.use((req, res, next) => {

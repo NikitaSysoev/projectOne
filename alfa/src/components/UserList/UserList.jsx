@@ -11,7 +11,7 @@ class UserList extends Component {
     const { loadUser } = this.props;
     api.getUsers().then(users => loadUser(users));
     const state = store.getState();
-    console.log(state.users);
+    // console.log(state.users);
   }
 
   render() {

@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
+const database = require('./db/database');
 const User = require('./model/user');
 
 const app = express();
@@ -15,13 +15,8 @@ app.use(
 
 app.use(bodyParser.json());
 
-const url = 'mongodb://localhost:27017';
-const dbName = 'users';
+database.connect();
 
-mongoose.connect(
-  `${url}/${dbName}`,
-  { useNewUrlParser: true }
-);
 //
 User.deleteMany({}).then(() => {
   const newUser = new User({ _id: 1, name: 'Morgan' });

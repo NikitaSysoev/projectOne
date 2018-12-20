@@ -5,17 +5,14 @@ import UserBox from '../UserBox';
 import api from '../../api';
 
 import { loadUsers } from '../../actions/userActions';
-import store from '../../store/store';
 
 import './UserList.css';
 
 class UserList extends Component {
   componentDidMount() {
-    const { loadUsers } = this.props;
-    api.getUsers().then(users => console.log(users));
-    api.getUsers().then(users => loadUsers(users));
-    // const state = store.getState();
-    // console.log(state.users);
+    const { loadUsers, users } = this.props;
+    api.getUsers().then(data => loadUsers(data));
+    console.log(users);
   }
 
   render() {
@@ -28,12 +25,14 @@ class UserList extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.users;
+  return {
+    users: state.users.entities,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUsers: () => dispatch(loadUsers()),
+    loadUsers: users => dispatch(loadUsers(users)),
   };
 }
 

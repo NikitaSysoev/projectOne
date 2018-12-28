@@ -25,7 +25,7 @@ User.deleteMany({}).then(() => {
   newUser2.save();
 });
 //
-app.use(express.static(path.join('./', 'alfa', 'build')));
+app.use(express.static(path.join('./', 'front', 'build')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join('./', 'alfa', 'build', 'index.html'));
+  res.sendFile(path.join('./', 'front', 'build', 'index.html'));
 });
 
 app.get('/api/hello', (req, res) => {

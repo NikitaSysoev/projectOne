@@ -25,10 +25,10 @@ export default class UserBox extends Component {
 
   render() {
     const { renaming } = this.state;
+    const { name } = this.props;
     return (
       <div className="UserBox">
-        {!renaming && <div>Name</div>}
-        {renaming && <input type="text /" />}
+        {!renaming ? <div>{name}</div> : <input type="text /" />}
         <div>
           <Button color="secondary" onClick={this.renameUser}>
             {!renaming ? 'Rename' : 'Ok'}

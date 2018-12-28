@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import UserBox from '../UserBox';
-import api from '../../api';
 
 import { loadUsers } from '../../actions/userActions';
 
@@ -10,15 +9,19 @@ import './UserList.css';
 
 class UserList extends Component {
   componentDidMount() {
-    const { loadUsers, users } = this.props;
-    api.getUsers().then(data => loadUsers(data));
-    console.log(users);
+    const { loadUsers } = this.props;
+    loadUsers();
   }
 
   render() {
+    const { users } = this.props;
     return (
       <div className="UserList">
-        <UserBox />
+        {users.length ? (
+          users.map(item => <UserBox key={item._id} name={item.name} />)
+        ) : (
+          <p>No users</p>
+        )}
       </div>
     );
   }
@@ -32,7 +35,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUsers: users => dispatch(loadUsers(users)),
+    loadUsers: () => dispatch(loadUsers()),
   };
 }
 

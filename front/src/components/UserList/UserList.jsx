@@ -18,7 +18,9 @@ class UserList extends Component {
     return (
       <div className="UserList">
         {users.length ? (
-          users.map(item => <UserBox key={item._id} name={item.name} />)
+          users.map(item => (
+            <UserBox key={item._id} name={item.name} id={item._id} />
+          ))
         ) : (
           <p>No users</p>
         )}

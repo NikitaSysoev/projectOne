@@ -12,15 +12,23 @@ export default class UserBox extends Component {
   }
 
   renameUser = e => {
+    const { id } = this.props;
     const { renaming } = this.state;
     e.preventDefault();
-    this.setState({
-      renaming: !renaming,
+    this.setState(state => {
+      return {
+        renaming: !state.renaming,
+      };
     });
+    if (renaming) {
+      console.log(id);
+    }
   };
 
   deleteUser = e => {
+    const { id } = this.props;
     e.preventDefault();
+    console.log(id);
   };
 
   render() {

@@ -19,12 +19,14 @@ class api {
     return data;
   }
 
-  static async addUser(id, name) {
+  static async addUser(name) {
+    const data = await this.getUsers();
+    const maxEl = Math.max.apply(null, data.map(item => item._id)) + 1;
     await axios.post('http://localhost:8080/api/users', {
-      _id: id,
+      _id: maxEl,
       name,
     });
-    return true;
+    return maxEl;
   }
 }
 

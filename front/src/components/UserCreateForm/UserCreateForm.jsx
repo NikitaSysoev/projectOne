@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import './UserCreateForm.css';
 
-export default class UserCreateForm extends Component {
+import { createUser } from '../../actions/userActions';
+
+class UserCreateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +16,9 @@ export default class UserCreateForm extends Component {
 
   addUser = e => {
     e.preventDefault();
-    const { addUser } = this.props;
+    const { createUser } = this.props;
     const { inputValue } = this.state;
-    addUser(1, inputValue);
+    createUser(inputValue);
   };
 
   onCheckValue = e => {
@@ -46,3 +49,14 @@ export default class UserCreateForm extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createUser: (name) => dispatch(createUser(name)),
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UserCreateForm);

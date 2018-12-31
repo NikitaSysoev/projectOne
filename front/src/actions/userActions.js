@@ -54,10 +54,11 @@ const createUserFailure = error => ({
   },
 });
 
-export const createUser = (id, name) => async dispatch => {
+export const createUser = name => async dispatch => {
   try {
     dispatch(createUserStarted());
-    await api.addUser(id, name) && dispatch(createUserSuccess(id, name));
+    const maxEl = await api.addUser(name);
+    dispatch(createUserSuccess(maxEl, name));
   } catch (error) {
     dispatch(createUserFailure(error));
   }

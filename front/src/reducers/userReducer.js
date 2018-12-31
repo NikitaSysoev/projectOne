@@ -41,7 +41,7 @@ export default function userReducer(state = initialState, action) {
     case CREATE_USER_SUCCESS:
       return {
         ...state,
-        entities: [...state.users.entities, action.payload],
+        entities: [...state.entities, action.payload],
         loading: false,
         error: null,
       };
@@ -75,9 +75,12 @@ export default function userReducer(state = initialState, action) {
     //     loading: true,
     //   };
     // case DELETE_USER_SUCCESS:
-    //   return {
+    //     const idx = state.entities.findIndex((el)=>el.id === action.payload.id);
+    //     const before =state.entities.slice(0, idx);
+    //     const after = state.entities.slice(idx + 1);
+    //     return {
     //     ...state,
-    //     entities: [...state.users.entities],
+    //     entities: [...before, ...after],
     //     loading: false,
     //     error: null,
     //   };

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './UserCreateForm.css';
 
-import { createUser } from '../../actions/userActions';
+import { addUser } from '../../actions/userActions';
 
 class UserCreateForm extends Component {
   constructor(props) {
@@ -14,8 +14,7 @@ class UserCreateForm extends Component {
     };
   }
 
-  addUser = e => {
-    e.preventDefault();
+  create = () => {
     const { createUser } = this.props;
     const { inputValue } = this.state;
     createUser(inputValue);
@@ -41,7 +40,7 @@ class UserCreateForm extends Component {
               value={inputValue}
             />
           </FormGroup>
-          <Button onClick={this.addUser} disabled={!inputValue.trim()}>
+          <Button onClick={this.create} disabled={!inputValue.trim()}>
             Create user
           </Button>
         </Form>
@@ -52,7 +51,7 @@ class UserCreateForm extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    createUser: (name) => dispatch(createUser(name)),
+    createUser: name => dispatch(addUser(name)),
   };
 }
 

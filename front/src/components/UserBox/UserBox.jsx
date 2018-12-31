@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { connect } from 'react-redux';
+
+import { updateUser, deleteUser } from '../../actions/userActions';
 
 import './UserBox.css';
 
-export default class UserBox extends Component {
+class UserBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,10 +14,9 @@ export default class UserBox extends Component {
     };
   }
 
-  renameUser = e => {
+  rename = () => {
     const { id } = this.props;
     const { renaming } = this.state;
-    e.preventDefault();
     this.setState(state => {
       return {
         renaming: !state.renaming,
@@ -25,10 +27,10 @@ export default class UserBox extends Component {
     }
   };
 
-  deleteUser = e => {
-    const { id } = this.props;
+  delete = e => {
     e.preventDefault();
-    console.log(id);
+    const { removeUser, id } = this.props;
+    removeUser(id);
   };
 
   render() {
@@ -38,10 +40,10 @@ export default class UserBox extends Component {
       <div className="UserBox">
         {!renaming ? <div>{name}</div> : <input type="text /" />}
         <div>
-          <Button color="secondary" onClick={this.renameUser}>
+          <Button color="secondary" onClick={this.rename}>
             {!renaming ? 'Rename' : 'Ok'}
           </Button>
-          <Button color="danger" onClick={this.deleteUser}>
+          <Button color="danger" onClick={this.delete}>
             Delete
           </Button>
         </div>
@@ -49,3 +51,15 @@ export default class UserBox extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    renameUser: (id, name) => dispatch(updateUser(id, name)),
+    removeUser: id => dispatch(deleteUser(id)),
+  };
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(UserBox);

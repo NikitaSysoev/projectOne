@@ -9,8 +9,8 @@ import './UserList.css';
 
 class UserList extends Component {
   componentDidMount() {
-    const { loadUsers } = this.props;
-    loadUsers();
+    const { fetchUsers } = this.props;
+    fetchUsers();
   }
 
   render() {
@@ -37,7 +37,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUsers: () => dispatch(loadUsers()),
+    fetchUsers: () => dispatch(loadUsers()),
   };
 }
 

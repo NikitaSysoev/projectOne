@@ -26,7 +26,8 @@
     "no-unused-expressions": 0,
     "object-curly-newline": 0,
     "react/prefer-stateless-function": 0,
-    "arrow-body-style": 0
+    "arrow-body-style": 0,
+    "no-underscore-dangle": 0
   },
   "globals": {
     "it": false

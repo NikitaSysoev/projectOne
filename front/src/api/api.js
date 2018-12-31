@@ -20,13 +20,24 @@ class api {
   }
 
   static async addUser(name) {
-    const data = await this.getUsers();
-    const maxEl = Math.max.apply(null, data.map(item => item._id)) + 1;
+    const _id = await this.getRandomInt(100, 1000);
     await axios.post('http://localhost:8080/api/users', {
-      _id: maxEl,
+      _id,
       name,
     });
-    return maxEl;
+    return _id;
+  }
+
+  static updateUser() {
+    return null;
+  }
+
+  static deleteUser() {
+    return null;
+  }
+
+  static getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 

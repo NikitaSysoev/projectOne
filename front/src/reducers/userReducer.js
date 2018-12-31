@@ -2,9 +2,15 @@ import {
   LOAD_USERS_STARTED,
   LOAD_USERS_SUCCESS,
   LOAD_USERS_FAILURE,
-  CREATE_USER_STARTED,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_FAILURE,
+  ADD_USER_STARTED,
+  ADD_USER_SUCCESS,
+  ADD_USER_FAILURE,
+  UPDATE_USER_STARTED,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+  DELETE_USER_STARTED,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAILURE,
 } from '../actions/userActions';
 
 const initialState = {
@@ -33,63 +39,63 @@ export default function userReducer(state = initialState, action) {
         loading: false,
         error: action.payload.error,
       };
-    case CREATE_USER_STARTED:
+    case ADD_USER_STARTED:
       return {
         ...state,
         loading: true,
       };
-    case CREATE_USER_SUCCESS:
+    case ADD_USER_SUCCESS:
       return {
         ...state,
         entities: [...state.entities, action.payload],
         loading: false,
         error: null,
       };
-    case CREATE_USER_FAILURE:
+    case ADD_USER_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
       };
-    // case RENAME_USER_STARTED:
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //   };
-    // case RENAME_USER_SUCCESS:
-    //   return {
-    //     ...state,
-    //     entities: [...state.users.entities],
-    //     loading: false,
-    //     error: null,
-    //   };
-    // case RENAME_USER_FAILURE:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     error: action.payload.error,
-    //   };
-    // case DELETE_USER_STARTED:
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //   };
-    // case DELETE_USER_SUCCESS:
-    //     const idx = state.entities.findIndex((el)=>el.id === action.payload.id);
-    //     const before =state.entities.slice(0, idx);
-    //     const after = state.entities.slice(idx + 1);
-    //     return {
-    //     ...state,
-    //     entities: [...before, ...after],
-    //     loading: false,
-    //     error: null,
-    //   };
-    // case DELETE_USER_FAILURE:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     error: action.payload.error,
-    //   };
+    case UPDATE_USER_STARTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        entities: [...state.users.entities],
+        loading: false,
+        error: null,
+      };
+    case UPDATE_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+      };
+    case DELETE_USER_STARTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        entities: [
+          ...state.entities.slice(0, state.entities.findIndex(el => el._id === action.payload.id)),
+          ...state.entities.slice(state.entities.findIndex(el => el._id === action.payload.id) + 1),
+        ],
+        loading: false,
+        error: null,
+      };
+    case DELETE_USER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.error,
+      };
     default:
       return state;
   }

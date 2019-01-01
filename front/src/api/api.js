@@ -32,8 +32,9 @@ class api {
     return null;
   }
 
-  static deleteUser() {
-    return null;
+  static async deleteUser(id) {
+    await axios.delete(`http://localhost:8080/api/users/${id}`);
+    return id;
   }
 
   static getRandomInt(min, max) {

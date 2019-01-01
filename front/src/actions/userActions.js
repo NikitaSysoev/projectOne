@@ -118,8 +118,8 @@ const deleteUserFailure = error => ({
 export const deleteUser = id => async dispatch => {
   try {
     dispatch(deleteUserStarted());
-    const user = await api.removeUser(id);
-    dispatch(deleteUserSuccess(user._id));
+    await api.deleteUser(id);
+    dispatch(deleteUserSuccess(id));
   } catch (error) {
     dispatch(deleteUserFailure(error));
   }

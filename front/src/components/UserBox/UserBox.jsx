@@ -30,6 +30,7 @@ class UserBox extends Component {
   delete = e => {
     e.preventDefault();
     const { removeUser, id } = this.props;
+    console.log(id);
     removeUser(id);
   };
 

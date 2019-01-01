@@ -30,7 +30,10 @@ app.use(express.static(path.join('./', 'front', 'build')));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT, DELETE');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET,HEAD,OPTIONS,POST,PUT, DELETE'
+  );
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
@@ -100,7 +103,7 @@ app.put('/api/users/:id', (req, res) => {
 
 app.delete('/api/users/:id', (req, res) => {
   const { id } = req.params;
-  User.findOneAndDelete(id).then(
+  User.findOneAndRemove({ _id: id }).then(
     user => {
       if (!user) {
         return res.status(404).send();

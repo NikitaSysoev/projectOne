@@ -83,10 +83,7 @@ export default function userReducer(state = initialState, action) {
     case DELETE_USER_SUCCESS:
       return {
         ...state,
-        entities: [
-          ...state.entities.slice(0, state.entities.findIndex(el => el._id === action.payload.id)),
-          ...state.entities.slice(state.entities.findIndex(el => el._id === action.payload.id) + 1),
-        ],
+        entities: [...state.entities.filter(item => item._id !== action.payload.id)],
         loading: false,
         error: null,
       };

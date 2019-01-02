@@ -7,7 +7,7 @@
     "server": "nodemon server/server.js",
     "mongod": "npx kill-port 27017 && mongod",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn front\"",
-    "backlint": "eslint server/**/*.js",
+    "lint": "eslint server/**/*.js",
     "frontlint": "cd front && yarn lint",
     "test": "jest --detectOpenHandles --runInBand"
   },

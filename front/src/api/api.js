@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class api {
+export default class api {
   static hello() {
     return axios('http://localhost:8080/api/hello')
       .then(res => res.data)
@@ -28,18 +28,17 @@ class api {
     return _id;
   }
 
-  static updateUser() {
-    return null;
+  static updateUser(id, name) {
+    return axios.put(`http://localhost:8080/api/users/${id}`, {
+      name,
+    });
   }
 
-  static async deleteUser(id) {
-    await axios.delete(`http://localhost:8080/api/users/${id}`);
-    return id;
+  static deleteUser(id) {
+    return axios.delete(`http://localhost:8080/api/users/${id}`);
   }
 
   static getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
-
-export default api;

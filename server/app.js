@@ -18,12 +18,12 @@ app.use(bodyParser.json());
 database.connect();
 
 //
-User.deleteMany({}).then(() => {
-  const newUser = new User({ _id: 1, name: 'Morgan' });
-  const newUser2 = new User({ _id: 2, name: 'Rotts' });
-  newUser.save();
-  newUser2.save();
-});
+// User.deleteMany({}).then(() => {
+//   const newUser = new User({ _id: 1, name: 'Morgan' });
+//   const newUser2 = new User({ _id: 2, name: 'Rotts' });
+//   newUser.save();
+//   newUser2.save();
+// });
 //
 app.use(express.static(path.join('./', 'front', 'build')));
 

@@ -90,8 +90,8 @@ const updateUserFailure = error => ({
 export const updateUser = (id, name) => async dispatch => {
   try {
     dispatch(updateUserStarted());
-    const maxEl = await api.updateUser(name);
-    dispatch(updateUserSuccess(maxEl, name));
+    await api.updateUser(id, name);
+    dispatch(updateUserSuccess(id, name));
   } catch (error) {
     dispatch(updateUserFailure(error));
   }

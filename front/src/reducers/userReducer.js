@@ -63,9 +63,13 @@ export default function userReducer(state = initialState, action) {
         loading: true,
       };
     case UPDATE_USER_SUCCESS:
+      const arr = state.entities.reduce((acc, item) => {
+        if (item._id === action.payload.id) item.name = action.payload.name;
+        return acc.concat(item);
+      }, []);
       return {
         ...state,
-        entities: [...state.users.entities],
+        entities: [...arr],
         loading: false,
         error: null,
       };
@@ -83,7 +87,7 @@ export default function userReducer(state = initialState, action) {
     case DELETE_USER_SUCCESS:
       return {
         ...state,
-        entities: [...state.entities.filter(item => item._id !== action.payload.id)],
+        entities: state.entities.filter(item => item._id !== action.payload.id),
         loading: false,
         error: null,
       };

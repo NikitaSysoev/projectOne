@@ -1,11 +1,5 @@
 .App {
-  /* background-color: #282c34; */
   min-height: 100vh;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* color: white; */
+  width: 500px;
+  margin: 0 auto;
 }
-
-/* .container {
-  width: 1170px;
-} */

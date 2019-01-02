@@ -15,7 +15,7 @@ class UserBox extends Component {
   }
 
   rename = () => {
-    const { id } = this.props;
+    const { id, renameUser, name } = this.props;
     const { renaming } = this.state;
     this.setState(state => {
       return {
@@ -23,14 +23,14 @@ class UserBox extends Component {
       };
     });
     if (renaming) {
-      console.log(id);
+      const newName = this.inputName.value ? this.inputName.value : name;
+      renameUser(id, newName);
     }
   };
 
   delete = e => {
     e.preventDefault();
     const { removeUser, id } = this.props;
-    console.log(id);
     removeUser(id);
   };
 
@@ -39,7 +39,16 @@ class UserBox extends Component {
     const { name } = this.props;
     return (
       <div className="UserBox">
-        {!renaming ? <div>{name}</div> : <input type="text /" />}
+        {!renaming ? (
+          <div>{name}</div>
+        ) : (
+          <input
+            type="text"
+            ref={input => {
+              this.inputName = input;
+            }}
+          />
+        )}
         <div>
           <Button color="secondary" onClick={this.rename}>
             {!renaming ? 'Rename' : 'Ok'}

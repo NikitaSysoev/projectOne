@@ -1,5 +1,9 @@
 .UserList {
   display: flex;
   flex-direction: column;
-  flex:1;
+  flex: 1;
+}
+
+.UserList .UserBox {
+  margin: 5px 0;
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import Button from 'arui-feather/button';
 import { connect } from 'react-redux';
 
 import { updateUser, deleteUser } from '../../actions/userActions';
@@ -40,7 +40,7 @@ class UserBox extends Component {
     return (
       <div className="UserBox">
         {!renaming ? (
-          <div>{name}</div>
+          <div className="UserBox__text">{name}</div>
         ) : (
           <input
             type="text"
@@ -50,10 +50,10 @@ class UserBox extends Component {
           />
         )}
         <div>
-          <Button color="secondary" onClick={this.rename}>
+          <Button onClick={this.rename}>
             {!renaming ? 'Rename' : 'Ok'}
           </Button>
-          <Button color="danger" onClick={this.delete}>
+          <Button view="extra" onClick={this.delete}>
             Delete
           </Button>
         </div>

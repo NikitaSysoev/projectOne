@@ -1,0 +1,8 @@
+.UserCreateForm {
+    display: flex;
+    margin: 5px 0;
+}
+
+.UserCreateForm input {
+    margin-right: 10px;
+}

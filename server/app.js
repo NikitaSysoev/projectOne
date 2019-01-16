@@ -2,27 +2,47 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const User = require('./model/user');
 const database = require('./db/database');
+const User = require('./model/user');
 
-database.connect();
 const app = express();
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join('./', 'alfa', 'build')));
+database.connect();
+
+//
+// User.deleteMany({}).then(() => {
+//   const newUser = new User({ _id: 1, name: 'Morgan' });
+//   const newUser2 = new User({ _id: 2, name: 'Rotts' });
+//   newUser.save();
+//   newUser2.save();
+// });
+//
+app.use(express.static(path.join('./', 'front', 'build')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET,HEAD,OPTIONS,POST,PUT, DELETE'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+  );
   next();
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join('./', 'alfa', 'build', 'index.html'));
+  res.sendFile(path.join('./', 'front', 'build', 'index.html'));
 });
 
 app.get('/api/hello', (req, res) => {
@@ -83,7 +103,7 @@ app.put('/api/users/:id', (req, res) => {
 
 app.delete('/api/users/:id', (req, res) => {
   const { id } = req.params;
-  User.findOneAndDelete(id).then(
+  User.findOneAndRemove({ _id: id }).then(
     user => {
       if (!user) {
         return res.status(404).send();

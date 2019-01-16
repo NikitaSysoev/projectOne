@@ -1,0 +1,11 @@
+.UserBox {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.UserBox__text {
+  align-self: center;
+}

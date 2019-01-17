@@ -1,2 +1,5 @@
 /node_modules
 .vscode
+.aws
+lambda.js
+package-lock.json

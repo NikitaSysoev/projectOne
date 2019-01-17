@@ -9,7 +9,7 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn front\"",
     "lint": "eslint server/**/*.js",
     "frontlint": "cd front && yarn lint",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
     "claudia": "claudia create --handler exports.handler --deploy-proxy-api --region eu-central-1",
     "roleClean": "aws iam delete-role-policy --role-name projectOne-executor --policy-name log-writer && aws iam delete-role --role-name projectOne-executor && aws lambda delete-function --function-name projectOne-executor"
   },

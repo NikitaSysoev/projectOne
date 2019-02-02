@@ -3,3 +3,4 @@
 .aws
 lambda.js
 package-lock.json
+/server/build

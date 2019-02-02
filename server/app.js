@@ -17,15 +17,15 @@ app.use(bodyParser.json());
 
 database.connect();
 
-//
+// app.use('/', express.static(path.join(__dirname, 'build')));
+app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
+app.use(express.static(path.join('./', 'front', 'build')));
 // User.deleteMany({}).then(() => {
 //   const newUser = new User({ _id: 1, name: 'Morgan' });
 //   const newUser2 = new User({ _id: 2, name: 'Rotts' });
 //   newUser.save();
 //   newUser2.save();
 // });
-//
-app.use(express.static(path.join('./', 'front', 'build')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
+  // res.sendFile(path.join(__dirname, 'build', 'index.html'));
   res.sendFile(path.join('./', 'front', 'build', 'index.html'));
 });
 

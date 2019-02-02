@@ -64,7 +64,7 @@ describe('app', () => {
       expect(resPut.statusCode).toBe(200);
       const resGet = await request(app).get('/api/users/2');
       expect(resGet.statusCode).toBe(200);
-      expect(resGet.body.name).toBe('Fuger');
+      expect(resGet.body).toEqual({ _id: 2, name: 'Fuger' });
     });
 
     it('DELETE /api/users/2', async () => {

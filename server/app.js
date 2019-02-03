@@ -9,13 +9,13 @@ const User = require('./model/user');
 
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true });
-mongoose.connection.on('error', err => {
-  console.error(`Database Connection Error:  ${err}`);
-  process.exit(2);
-});
-mongoose.connection.on('connected', () => {
-  console.info('MongoDB Database is connected');
-});
+// mongoose.connection.on('error', err => {
+//   console.error(`Database Connection Error:  ${err}`);
+//   process.exit(2);
+// });
+// mongoose.connection.on('connected', () => {
+//   console.info('MongoDB Database is connected');
+// });
 
 const app = express();
 app.use(cookieParser());

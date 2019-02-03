@@ -41,4 +41,53 @@ export default class api {
   static getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
+  static TestLogin(login) {
+    if (/^[a-zA-Z1-9]+$/.test(login) === false) {
+      return {
+        message: 'В логине должны быть только латинские буквы',
+        status: false,
+      };
+    }
+    if (login.length < 4 || login.length > 20) {
+      return {
+        message: 'В логине должен быть от 4 до 20 символов',
+        status: false,
+      };
+    }
+    if (parseInt(login.substr(0, 1))) {
+      return {
+        message: 'Логин должен начинаться с буквы',
+        status: false,
+      };
+    }
+    return { status: true };
+  }
+
+  static PasswordTest(password) {
+    const strongRegex = new RegExp(
+      '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+    );
+    const mediumRegex = new RegExp(
+      '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})'
+    );
+    if (strongRegex.test(password)) {
+      return {
+        message: 'Надежный пароль',
+        status: true,
+        color: 'green',
+      };
+    }
+    if (mediumRegex.test(password)) {
+      return {
+        message: 'Средний пароль',
+        status: true,
+        color: 'orange',
+      };
+    }
+    return {
+      message: 'Слабый пароль',
+      status: false,
+    };
+  }
 }

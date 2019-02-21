@@ -1,6 +1,3 @@
-/node_modules
 .vscode
 .aws
-lambda.js
-package-lock.json
-/server/build
+node_modules

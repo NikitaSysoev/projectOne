@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const userDB = {
   id: 1,
   email: 'test@mail.ru',
-  password: '123',
+  password: '123'
 };
 
 passport.serializeUser((user, done) => {

@@ -11,10 +11,7 @@ describe('app', () => {
   beforeAll(async () => {
     mongoServer = new MongoMemoryServer();
     const mongoUri = await mongoServer.getConnectionString();
-    await mongoose.connect(
-      mongoUri,
-      { useNewUrlParser: true }
-    );
+    await mongoose.connect(mongoUri, { useNewUrlParser: true });
   });
 
   describe('/api/hello', () => {
@@ -26,13 +23,12 @@ describe('app', () => {
   });
 
   describe('/api/users', () => {
-    beforeEach(() => {
-      User.deleteMany({}).then(() => {
-        const newUser = new User({ _id: 1, name: 'Morgan' });
-        const newUser2 = new User({ _id: 2, name: 'Rotts' });
-        newUser.save();
-        newUser2.save();
-      });
+    beforeEach(async () => {
+      await User.deleteMany({});
+      const newUser = new User({ _id: 1, name: 'Morgan' });
+      const newUser2 = new User({ _id: 2, name: 'Rotts' });
+      await newUser.save();
+      await newUser2.save();
     });
 
     it('GET /api/users/1', async () => {
@@ -75,8 +71,8 @@ describe('app', () => {
       expect(resGet.statusCode).toBe(404);
     });
   });
-  afterAll(() => {
-    mongoose.disconnect();
-    mongoServer.stop();
+  afterAll(async () => {
+    await mongoose.disconnect();
+    await mongoServer.stop();
   });
 });

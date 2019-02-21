@@ -1,39 +1,41 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
 
-const database = require('./db/database');
 const User = require('./model/user');
 
-const app = express();
+mongoose.Promise = Promise;
+mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true });
+mongoose.connection.on('connected', () => {
+  console.info('MongoDB Database is connected');
+});
 
+const app = express();
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
-  bodyParser.urlencoded({
-    extended: true,
+  session({
+    secret: 'ok34242ewrfsfsf',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    httpOnly: true,
+    maxAge: 60 * 60 * 100
   })
 );
 
-app.use(bodyParser.json());
-
-database.connect();
-
-// app.use('/', express.static(path.join(__dirname, 'build')));
 app.use('/static', express.static(path.join(__dirname, 'build', 'static')));
 app.use(express.static(path.join('./', 'front', 'build')));
-// User.deleteMany({}).then(() => {
-//   const newUser = new User({ _id: 1, name: 'Morgan' });
-//   const newUser2 = new User({ _id: 2, name: 'Rotts' });
-//   newUser.save();
-//   newUser2.save();
-// });
+// app.use(express.static(path.join(__dirname, 'build')));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET,HEAD,OPTIONS,POST,PUT, DELETE'
-  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT, DELETE');
   res.setHeader(
     'Access-Control-Allow-Headers',
     'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
@@ -46,9 +48,13 @@ app.get('/', (req, res) => {
   res.sendFile(path.join('./', 'front', 'build', 'index.html'));
 });
 
+app.get('/admin', (req, res) => {
+  res.status(200).send('Admin panel');
+});
+
 app.get('/api/hello', (req, res) => {
   res.status(200).send({
-    message: 'Hello world',
+    message: 'Hello world'
   });
 });
 

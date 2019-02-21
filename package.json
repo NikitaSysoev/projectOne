@@ -1,47 +1,15 @@
 {
-  "name": "projectone",
+  "name": "SantaMaria",
   "version": "1.0.0",
-  "scripts": {
-    "front": "cd front && yarn start",
-    "build": "cd front && yarn build",
-    "server": "nodemon server/server.js",
-    "mongod": "npx kill-port 27017 && mongod",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn front\"",
-    "lint": "eslint server/**/*.js",
-    "frontlint": "cd front && yarn lint",
-    "test": "jest --forceExit --detectOpenHandles --maxWorkers=2",
-    "claudia": "claudia create --handler exports.handler --deploy-proxy-api add --name helloworld3 --region eu-central-1",
-    "roleClean": "aws iam delete-role-policy --role-name helloworld1-executor --policy-name log-writer && aws iam delete-role --role-name helloworld1-executor && aws lambda delete-function --function-name helloworld1-executor",
-    "destroy": "claudia destroy --source"
-  },
   "main": "index.js",
   "repository": "https://github.com/NikitaSysoev/projectOne.git",
   "author": "NikitaSysoev <na.sysoev@gmail.com>",
   "license": "MIT",
-  "proxy": "http://localhost:8080",
-  "dependencies": {
-    "aws-serverless-express": "^3.3.5",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "jest-environment-node": "^23.4.0",
-    "mongodb": "^3.1.10",
-    "mongodb-memory-server": "^2.8.0",
-    "mongoose": "^5.3.13"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^9.0.0",
-    "babel-preset-env": "^1.7.0",
-    "claudia": "^5.3.0",
-    "concurrently": "^4.0.1",
-    "eslint": "5.6.0",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0",
-    "jest": "^23.6.0",
-    "superagent": "^4.0.0-beta.5",
-    "supertest": "^3.3.0"
+  "private": true,
+  "scripts": {
+    "front": "cd front && yarn start",
+    "back": "cd back && yarn server",
+    "mongod": "npx kill-port 27017 && mongod",
+    "dev": "npx concurrently --kill-others-on-fail \"yarn back\" \"yarn front\""
   }
 }

@@ -30,7 +30,8 @@
     "no-underscore-dangle": 0,
     "no-case-declarations": 0,
     "no-param-reassign": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "radix": 0
   },
   "globals": {
     "it": false

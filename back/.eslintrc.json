@@ -3,9 +3,11 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "func-names": 0,
+    "no-console": 0
   },
   "env": {
     "jest": true
-}
+  }
 }

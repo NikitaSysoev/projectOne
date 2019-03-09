@@ -1,4 +1,12 @@
 # projectOne
 
-1) yarn mongod  ||   npm run mongod
-2) yarn dev  || npm run dev
+На данный момент реализовано:
+
+Чтобы начать работать:
+1) Сначала подключить базу данных
+- npm run mongod
+2) Затем запустить 
+- npm run dev
+
+Чтобы собрать проект:
+- npm run build

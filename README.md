@@ -1,4 +1,4 @@
 # projectOne
 
-1) yarn mongod  ||   npm run mongod
-2) yarn dev  || npm run dev
+1) npm run mongod
+2) npm run dev

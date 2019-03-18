@@ -3,7 +3,7 @@ const path = require('path');
 const session = require('express-session');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -11,7 +11,7 @@ const LocalStrategy = require('passport-local').Strategy;
 mongoose.Promise = Promise;
 
 const app = express();
-// const User = require('./model/user');
+const User = require('./model/user');
 const Account = require('./model/Account');
 app.use(require('./routes'));
 
@@ -19,10 +19,10 @@ mongoose.connect('mongodb://localhost:27017/users', { useNewUrlParser: true });
 mongoose.set('debug', true);
 
 app.use(cors());
-app.use(express.cookieParser());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: 'secret' }));
+app.use(session({ secret: 'secret', resave: true, saveUninitialized: true }));
 
 // Passport:
 app.use(passport.initialize());

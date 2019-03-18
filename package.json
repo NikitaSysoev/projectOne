@@ -7,10 +7,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "front": "cd front && yarn start",
-    "back": "cd back && yarn server",
+    "front": "cd front && npm start",
+    "back": "cd back && npm run server",
     "mongod": "npx kill-port 27017 && mongod",
-    "dev": "concurrently --kill-others-on-fail \"yarn back\" \"yarn front\""
+    "dev": "concurrently --kill-others-on-fail \"npm run back\" \"npm run front\""
   },
   "devDependencies": {
     "concurrently": "^4.1.0"

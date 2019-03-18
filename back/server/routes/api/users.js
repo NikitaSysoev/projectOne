@@ -3,12 +3,6 @@ const router = require('express').Router();
 
 const User = mongoose.model('User');
 
-router.get('/hello', (req, res) => {
-  res.status(200).send({
-    message: 'Hello world'
-  });
-});
-
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   User.findById(id).then(

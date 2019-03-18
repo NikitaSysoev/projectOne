@@ -1,40 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { authPage, userPage } from '../../actions/pageActions';
+import { registerPage, userPage, loginPage } from '../../actions/pageActions';
 import './App.css';
 import UserPage from '../../pages/UserPage';
-import AuthPage from '../../pages/AuthPage';
+import RegisterPage from '../../pages/RegisterPage';
+import LoginPage from '../../pages/LoginPage';
 
-function App({ auth, users, page }) {
+const App = ({ register, users, login, page }) => {
   return (
     <div className="App">
       <div className="App_nav">
-        <button type="button" onClick={auth}>
-          Auth
+        <button type="button" onClick={register}>
+          Register
+        </button>
+        <button type="button" onClick={login}>
+          Login
         </button>
         <button type="button" onClick={users}>
           Users
         </button>
       </div>
       <div className="App_Content">
-        {page === 'auth' && <AuthPage />}
+        {page === 'register' && <RegisterPage />}
+        {page === 'login' && <LoginPage />}
         {page === 'users' && <UserPage />}
       </div>
     </div>
   );
-}
+};
 
 function mapStateToProps(state) {
   return {
-    page: state.pages.page,
+    page: state.pages.page
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     users: () => dispatch(userPage()),
-    auth: () => dispatch(authPage()),
+    register: () => dispatch(registerPage()),
+    login: () => dispatch(loginPage())
   };
 }
 

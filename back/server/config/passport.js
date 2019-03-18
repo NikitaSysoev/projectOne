@@ -1,25 +1,24 @@
 const mongoose = require('mongoose');
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 
-const Accounts = mongoose.model('Accounts');
+const Account = mongoose.model('Account');
 
 passport.use(
-  new LocalStrategy(
-    {
-      usernameField: 'user[email]',
-      passwordField: 'user[password]'
-    },
-    (email, password, done) => {
-      Accounts.findOne({ email })
-        .then(user => {
-          if (!user || !user.validatePassword(password)) {
-            return done(null, false, { errors: { 'email or password': 'is invalid' } });
-          }
-
+  new LocalStrategy(function(username, password, done) {
+    Account.getUserByUsername(username, function(err, user) {
+      if (err) throw err;
+      if (!user) {
+        return done(null, false, { message: 'Unknown User' });
+      }
+      Account.comparePassword(password, user.password, function(err, isMatch) {
+        if (err) throw err;
+        if (isMatch) {
           return done(null, user);
-        })
-        .catch(done);
-    }
-  )
+        } else {
+          return done(null, false, { message: 'Invalid password' });
+        }
+      });
+    });
+  })
 );
